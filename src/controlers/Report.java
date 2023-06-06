@@ -61,7 +61,7 @@ public class Report {
         int count = 0 ;
         for(String path : formFilename){
             String filename = path.split("\\")[1] ;
-            String proId = filename.split("_")[1];
+            String proId = filename.split("_")[1].substring(0, -4);
             if (proId.equals(id)) count++ ;
         }
         System.out.println("Number of student registered program " + id + " is " + count);
