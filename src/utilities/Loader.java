@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Loader {
 
-    private final static String SYSPATH = new File("").getAbsolutePath();
+    private final static String SYSPATH = new File("").getAbsolutePath() + "\\src\\" ;
 
     public static String initPath(String path) {
         return SYSPATH + path;
@@ -32,7 +32,7 @@ public class Loader {
             BufferedReader input = new BufferedReader(new FileReader(file));
             String line;
             while ((line = input.readLine()) != null) {
-                dta.add(line.trim());
+                dta.add(line);
             }
             input.close();
         } catch (IOException e) {

@@ -45,7 +45,7 @@ public class ProgramRegister {
         }
         String parentPhone = Inputter.getString("Enter parent phone: ", "This field cannot be empty.");
         String parentEmail = Inputter.getString("Enter parent email: ", "This field cannot be empty.");
-        String path = "\\src\\registrationform\\" + initFileName(s, p);
+        String path = "registrationform\\" + initFileName(s, p);
         createForm(path, s, p, regidDate , parrentPhone, parrentEmail);
         return path;
     }
