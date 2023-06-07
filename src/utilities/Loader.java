@@ -10,7 +10,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  *
@@ -39,7 +44,13 @@ public class Loader {
         }
         return dta;
     }
-
+    /**
+     * 
+     * @param filePath
+     * @param dta
+     * write all String in @param dta to file ca @param filePath 
+     * @return
+     */
     public static boolean writeToFile(String filePath, ArrayList<String> dta) {
         String _path = initPath(filePath);
         File file = new File(_path);
@@ -55,5 +66,53 @@ public class Loader {
             return false;
         }
         return true;
+    }
+    /**
+     * 
+     * @param packageName
+     * @return ArrayList<String> of all filename exist in packageName
+     * @throws IOException 
+     */
+    public static ArrayList<String> getFilenameInPackage(String packageName) throws IOException{
+        ArrayList<String> filenames = new ArrayList<>();
+        String packagePath = packageName.replace('.', '/');
+        URL url = Thread.currentThread().getContextClassLoader().getResource(packagePath);
+        if (url != null) {
+            String protocol = url.getProtocol();
+            if (protocol.equals("file")) {
+                String directoryPath = url.getPath();
+                filenames.addAll(getFilenamesInDirectory(directoryPath));
+                
+            } else if (protocol.equals("jar")) {
+                JarURLConnection jarConnection = (JarURLConnection) url.openConnection();
+                JarFile jarFile = jarConnection.getJarFile();
+                Enumeration<JarEntry> entries = jarFile.entries();
+                while (entries.hasMoreElements()) {
+                    JarEntry entry = entries.nextElement();
+                    String entryName = entry.getName();
+                    
+                    if (!entry.isDirectory() && entryName.startsWith(packagePath)) {
+                        filenames.add(entryName);
+                    }
+                }
+                
+                jarFile.close();
+            }
+        }
+        return filenames;
+    }
+    
+    private static ArrayList<String> getFilenamesInDirectory(String directoryPath){
+        ArrayList<String> filenames = new ArrayList<>() ;
+        File directory = new File(directoryPath) ;
+        File[] files = directory.listFiles() ;
+        if(files != null){
+            for(File file : files){
+                if (file.isFile()){
+                    filenames.add(file.getName());
+                }
+            }
+        }
+        return filenames ;
     }
 }

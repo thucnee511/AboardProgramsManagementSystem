@@ -4,6 +4,7 @@
  */
 package manager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
 import models.Student;
@@ -74,5 +75,13 @@ public class StudentManager extends TreeSet<Student> {
             s.setPhone(phone);
             System.out.println("Update successfully.");
         }
+    }
+    
+    public ArrayList<String> toArrayList(){
+        ArrayList<String> dta = new ArrayList<>() ;
+        for(Student s : this){
+            dta.add(s.toString());
+        }
+        return dta;
     }
 }

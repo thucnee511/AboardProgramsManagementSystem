@@ -4,10 +4,6 @@
  */
 package controlers;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import manager.ProgramManager;
@@ -45,13 +41,14 @@ public class ProgramRegister {
         }
         String parentPhone = Inputter.getString("Enter parent phone: ", "This field cannot be empty.");
         String parentEmail = Inputter.getString("Enter parent email: ", "This field cannot be empty.");
-        String path = "registrationform\\" + initFileName(s, p);
-        createForm(path, s, p, regidDate , parrentPhone, parrentEmail);
+        String path = initFileName(s, p);
+        createForm(path, s, p, regisDate, parentPhone, parentEmail);
         return path;
     }
 
-    private static void createForm(String path, Student s, Program p, Date regisDate , String parentPhone, String parentEmail) {
-        ArrayList<String> dta = new ArrayList<String>() ;
+    private static void createForm(String path, Student s, Program p, Date regisDate, String parentPhone, String parentEmail) {
+        path = "data/registrationform/" + path ;
+        ArrayList<String> dta = new ArrayList<>();
         dta.add("                                             Aboard Program Registration Form");
         dta.add("Information of student: ");
         dta.add(String.format("Student id: %13s Student name: %s", s.getId(), s.getName()));
@@ -60,10 +57,10 @@ public class ProgramRegister {
         dta.add(String.format("Address: %16s Email of the parent: %s    Phone of the parents: %s",
                 s.getAddress(), parentPhone, parentEmail));
         dta.add("Information of the aboard program:");
-        dta.add(String.format("Program id: %13s Program name: %s", p.getId() , p.getName()));
-        dta.add(String.format("Time: %19s Days: %d    Location: %s    Cost: %.2f$",p.getTime() , p.getLocation(),p.getDays(),p.getCost())) ;
+        dta.add(String.format("Program id: %13s Program name: %s", p.getId(), p.getName()));
+        dta.add(String.format("Time: %19s Days: %d    Location: %s    Cost: %.2f$", p.getTime(), p.getLocation(), p.getDays(), p.getCost()));
         dta.add("Information of the registration:");
-        dta.add("Registration date:        %s",DateModifier.toDateString(regisDate, null)) ;
+        dta.add(String.format("Registration date:        %s", DateModifier.toDateString(regisDate, null)));
         Loader.writeToFile(path, dta);
     }
 

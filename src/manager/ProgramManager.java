@@ -4,6 +4,7 @@
  */
 package manager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
 import models.Program;
@@ -82,7 +83,7 @@ public class ProgramManager extends TreeSet<Program> {
         }
     }
 
-    public void find() {
+    public void search() {
         String id = Inputter.getString("Enter program id: ", "This field cannot be empty.");
         if (find(id) == null) {
             System.out.println("This program does not exist.");
@@ -90,5 +91,13 @@ public class ProgramManager extends TreeSet<Program> {
             Program p = find(id);
             p.display();
         }
+    }
+    
+    public ArrayList<String> toArrayList(){
+        ArrayList<String> dta = new ArrayList<>() ;
+        for(Program s : this){
+            dta.add(s.toString());
+        }
+        return dta;
     }
 }

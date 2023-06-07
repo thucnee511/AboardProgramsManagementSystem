@@ -1,10 +1,13 @@
 package controlers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import manager.ProgramManager;
 import manager.StudentManager;
+import utilities.Inputter;
 import utilities.Loader;
 
 /**
@@ -12,10 +15,14 @@ import utilities.Loader;
  */
 
 public class Report {
-    ArrayList<String> formFilename = Loader.readFromFile("\\src\\data\\formpath.dat");
+    private final ArrayList<String> formFilenames;
+
+    public Report() throws IOException {
+        formFilenames = Loader.getFilenameInPackage("data.registrationform");
+    }
     
     public void registration(ProgramManager pm , StudentManager sm){
-        formFilename.add(ProgramRegister.register(pm, sm));
+        formFilenames.add(ProgramRegister.register(pm, sm));
     }
 
     public void showRegistration(StudentManager sm){
@@ -24,7 +31,7 @@ public class Report {
             System.out.println("This student does not exist.");
         }
         int count = 0 ;
-        for(String path : formFilename){
+        for(String path : formFilenames){
             if (path.contains(id)){
                 ArrayList<String> form = Loader.readFromFile(path);
                 printForm(form);
@@ -35,9 +42,8 @@ public class Report {
     }
 
     public void showStudentHaveManyRegistration(StudentManager pm){
-        HashMap<String,Integer> ids = new HashMapM<>() ;
-        for(String path : formFilename){
-            String filename = path.split("\\")[1] ;
+        HashMap<String,Integer> ids = new HashMap<>() ;
+        for(String filename : formFilenames){
             String stuId = filename.split("_")[0];
             if (ids.containsKey(stuId)){
                 Integer count = ids.get(stuId) + 1;
@@ -59,9 +65,9 @@ public class Report {
             System.out.println("This program does not exist.");
         }
         int count = 0 ;
-        for(String path : formFilename){
-            String filename = path.split("\\")[1] ;
-            String proId = filename.split("_")[1].substring(0, -4);
+        for(String filename : formFilenames){
+            String proId = filename.split("_")[1];
+            proId = proId.substring(0 , proId.length()-4);
             if (proId.equals(id)) count++ ;
         }
         System.out.println("Number of student registered program " + id + " is " + count);
