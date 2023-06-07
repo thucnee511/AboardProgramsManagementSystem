@@ -105,16 +105,16 @@ public class Program implements Comparable<Program> {
 
     @Override
     public String toString() {
-        String ret = String.format("%s,%s,%s,%s,%s,%s,%f,%s",
+        String ret = String.format("%s,%s,%s,%s,%s,%d,%s,%f,%s",
                 id, name, time, DateModifier.toDateString(beginDate, null),
-                DateModifier.toDateString(endDate, null), cost, content);
+                DateModifier.toDateString(endDate, null), days, location, cost, content);
         return ret;
     }
 
     public void display() {
 //      |Program id|    Program name    |Time      |Begin Date| End Date |     Days     |Location                           |Cost    |
 //      |%-10s|%-20s|%-10s|%10s|%10s|%14s|%-35s|%6.2f|                 |     Days     |
-        String line = String.format("|%-10s|%-20s|%-10s|%10s|%10s|%-14d|%-35s|%6.2f|",
+        String line = String.format("|%-10s|%-20s|%-10s|%10s|%10s|%-14d|%-35s|%6.2f$|",
                 id, name, time, DateModifier.toDateString(beginDate, null),
                 DateModifier.toDateString(endDate, null), days, location, cost);
         System.out.println(line);

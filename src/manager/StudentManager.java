@@ -47,7 +47,7 @@ public class StudentManager extends TreeSet<Student> {
             }
         }
         String name = Inputter.getString("Enter student name: ", "This field cannot be empty.");
-        String major = Inputter.getString("Enter progam time: ", "SE, SB, GD, MC", "([sS](([eE])|([Bb])))|([Gg][Dd])|([Mm][Cc])");
+        String major = Inputter.getString("Enter student major: ", "SE, SB, GD, MC", "([sS](([eE])|([Bb])))|([Gg][Dd])|([Mm][Cc])");
         String email = Inputter.getString("Enter studetn email: ", "Must contain \"@fpt.edu.vn\"", ".*(@fpt\\.edu\\.vn)$");
         String phone = Inputter.getString("Enter student phone: ", "This field cannot be empty.");
         String passport = Inputter.getString("Enter student passport: ", "This field cannot be empty.");

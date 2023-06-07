@@ -22,7 +22,7 @@ public class DateModifier {
         return sdf.format(date);
     }
 
-    public Date toDate(String date, String format) throws ParseException {
+    public static Date toDate(String date, String format) throws ParseException {
         if (format == null) {
             format = "dd/MM/yyyy";
         }

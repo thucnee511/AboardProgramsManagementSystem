@@ -1,0 +1,10 @@
+                                             Aboard Program Registration Form
+Information of student: 
+Student id: SE171089      Student name: Hoang Ngoc Thuc
+Major: SE                 Email: thuchnse171089@fpt.edu.vn    Phone: 0966316803    Passport: VN123
+Address: Vinhomes         Email of the parent: 0329832036    Phone of the parents: ngocngochtuc@gmail.com
+Information of the aboard program:
+Program id: E60           Program name: English 6 Oversea
+Time: March               Days: 40    Location: Malaysia    Cost: 1500.00$
+Information of the registration:
+Registration date:        15/02/2023

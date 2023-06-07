@@ -23,13 +23,23 @@ public class ProgramRegister {
     public static String register(ProgramManager pm, StudentManager sm) {
         Program p;
         Student s;
-        String pId = Inputter.getString("Enter program id: ", "This field cannot be empty.");
-        if ((p = pm.find(pId)) == null) {
-            System.out.println("The program does not exist.");
+        String pId;
+        while (true) {
+            pId = Inputter.getString("Enter program id: ", "This field cannot be empty.");
+            if ((p = pm.find(pId)) == null) {
+                System.out.println("The program does not exist.");
+                continue;
+            }
+            break;
         }
-        String sId = Inputter.getString("Enter student id: ", "This field cannot be empty.");
-        if ((s = sm.find(sId)) == null) {
-            System.out.println("The student does not exist.");
+        String sId;
+        while (true) {
+            sId = Inputter.getString("Enter student id: ", "This field cannot be empty.");
+            if ((s = sm.find(sId)) == null) {
+                System.out.println("The student does not exist.");
+                continue ;
+            }
+            break ;
         }
         Date regisDate;
         while (true) {
@@ -47,18 +57,18 @@ public class ProgramRegister {
     }
 
     private static void createForm(String path, Student s, Program p, Date regisDate, String parentPhone, String parentEmail) {
-        path = "data/registrationform/" + path ;
+        path = "data/registrationform/" + path;
         ArrayList<String> dta = new ArrayList<>();
         dta.add("                                             Aboard Program Registration Form");
         dta.add("Information of student: ");
-        dta.add(String.format("Student id: %13s Student name: %s", s.getId(), s.getName()));
-        dta.add(String.format("Major: %18s Email: %s    Phone: %s    Passport: %s", s.getMajor(),
+        dta.add(String.format("Student id: %-13s Student name: %s", s.getId(), s.getName()));
+        dta.add(String.format("Major: %-18s Email: %s    Phone: %s    Passport: %s", s.getMajor(), s.getEmail(),
                 s.getPhone(), s.getPassport()));
-        dta.add(String.format("Address: %16s Email of the parent: %s    Phone of the parents: %s",
+        dta.add(String.format("Address: %-16s Email of the parent: %s    Phone of the parents: %s",
                 s.getAddress(), parentPhone, parentEmail));
         dta.add("Information of the aboard program:");
-        dta.add(String.format("Program id: %13s Program name: %s", p.getId(), p.getName()));
-        dta.add(String.format("Time: %19s Days: %d    Location: %s    Cost: %.2f$", p.getTime(), p.getLocation(), p.getDays(), p.getCost()));
+        dta.add(String.format("Program id: %-13s Program name: %s", p.getId(), p.getName()));
+        dta.add(String.format("Time: %-19s Days: %d    Location: %s    Cost: %.2f$", p.getTime(), p.getDays(), p.getLocation(), p.getCost()));
         dta.add("Information of the registration:");
         dta.add(String.format("Registration date:        %s", DateModifier.toDateString(regisDate, null)));
         Loader.writeToFile(path, dta);
